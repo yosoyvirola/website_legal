@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Style C – Urgencia Elegante</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #000000;
+    --gold: #d4a853;
+    --gold-bright: #e8be6a;
+    --red: #c0392b;
+    --white: #f5f5f0;
+    --muted: rgba(245,245,240,0.4);
+    --display: 'Syne', sans-serif;
+    --body: 'Space Grotesk', sans-serif;
+  }
+
+  html, body { height: 100%; background: var(--bg); overflow: hidden; }
+
+  .slide {
+    width: 100vw; height: 100vh; height: 100dvh;
+    display: flex; flex-direction: column;
+    justify-content: center;
+    padding: clamp(2rem, 7vw, 8rem);
+    position: relative; overflow: hidden;
+  }
+
+  /* Noise texture overlay */
+  .slide::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  /* Large background number */
+  .bg-num {
+    position: absolute;
+    right: clamp(2rem, 6vw, 6rem);
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--display);
+    font-size: clamp(12rem, 30vw, 28rem);
+    font-weight: 800;
+    color: rgba(212, 168, 83, 0.04);
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--body);
+    font-size: clamp(0.6rem, 0.9vw, 0.72rem);
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--gold);
+    padding: 0.4em 1em;
+    margin-bottom: clamp(1.5rem, 3vh, 2.5rem);
+    width: fit-content;
+    opacity: 0;
+    animation: flashIn 0.4s ease forwards 0.1s;
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-size: clamp(2.2rem, 5.5vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.0;
+    color: var(--white);
+    max-width: 14ch;
+    margin-bottom: clamp(1rem, 2vh, 1.5rem);
+    opacity: 0;
+    animation: revealText 0.7s ease forwards 0.35s;
+  }
+
+  h1 .highlight {
+    color: var(--gold-bright);
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Underline accent */
+  h1 .highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 0.05em;
+    left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: expandLine 0.5s ease forwards 1.1s;
+  }
+
+  .checks {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.4rem, 0.8vh, 0.7rem);
+    margin-bottom: clamp(1.5rem, 3vh, 2.5rem);
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.7s;
+  }
+
+  .check-item {
+    font-family: var(--body);
+    font-size: clamp(0.8rem, 1.3vw, 1rem);
+    font-weight: 400;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .check-item::before {
+    content: '✓';
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 0.9em;
+    flex-shrink: 0;
+  }
+
+  .bottom-bar {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.95s;
+  }
+
+  .cta-btn {
+    font-family: var(--body);
+    font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+    font-weight: 500;
+    color: var(--bg);
+    background: var(--white);
+    padding: 0.9em 2.2em;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: inline-block;
+  }
+  .cta-btn:hover { background: var(--gold-bright); }
+
+  .since {
+    font-family: var(--body);
+    font-size: clamp(0.65rem, 1vw, 0.78rem);
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+  .since strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  @keyframes flashIn {
+    from { opacity: 0; transform: translateX(-8px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes revealText {
+    from { opacity: 0; transform: translateY(24px) skewY(1deg); }
+    to   { opacity: 1; transform: translateY(0) skewY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes expandLine {
+    to { transform: scaleX(1); }
+  }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="bg-num">7</div>
+  <div class="tag">Solución legal · TestaferroLegal.com</div>
+  <h1>Libre en <span class="highlight">7 días.</span><br>Sin concurso.<br>Sin embargo.</h1>
+  <div class="checks">
+    <div class="check-item">100% legal — escritura pública ante notario</div>
+    <div class="check-item">Su casa y sus ahorros, intactos</div>
+    <div class="check-item">+2.500 operaciones desde 2001</div>
+  </div>
+  <div class="bottom-bar">
+    <div class="cta-btn">Descubra cómo funciona</div>
+    <p class="since">Deudas desde <strong>20.000€</strong> hasta <strong>+2.000.000€</strong></p>
+  </div>
+</div>
+</body>
+</html>

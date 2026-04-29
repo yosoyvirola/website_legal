@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Style A – Cine Dorado</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #09090b;
+    --gold: #c9a96e;
+    --gold-soft: rgba(201,169,110,0.12);
+    --white: #f0ede8;
+    --muted: rgba(240,237,232,0.45);
+    --serif: 'Cormorant Garamond', serif;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+
+  html, body {
+    height: 100%; background: var(--bg); overflow: hidden;
+  }
+
+  .slide {
+    width: 100vw; height: 100vh; height: 100dvh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+    padding: clamp(2rem, 8vw, 9rem);
+    position: relative; overflow: hidden;
+  }
+
+  /* Ambient glow */
+  .slide::before {
+    content: '';
+    position: absolute;
+    width: clamp(300px, 60vw, 800px);
+    height: clamp(300px, 60vw, 800px);
+    background: radial-gradient(circle, rgba(201,169,110,0.07) 0%, transparent 70%);
+    top: -10%; left: -10%;
+    pointer-events: none;
+  }
+  .slide::after {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 60vh;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    right: clamp(2rem, 8vw, 9rem);
+    top: 20vh;
+    opacity: 0.3;
+  }
+
+  .label {
+    font-family: var(--sans);
+    font-size: clamp(0.6rem, 1vw, 0.75rem);
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: clamp(1.5rem, 3vh, 2.5rem);
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 5.5vw, 5rem);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--white);
+    max-width: 16ch;
+    margin-bottom: clamp(1rem, 2vh, 1.5rem);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .sub {
+    font-family: var(--sans);
+    font-size: clamp(0.85rem, 1.5vw, 1.15rem);
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 48ch;
+    margin-bottom: clamp(2rem, 4vh, 3rem);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s ease forwards 0.65s;
+  }
+
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--sans);
+    font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+    font-weight: 500;
+    color: var(--gold);
+    text-decoration: none;
+    border: 1px solid rgba(201,169,110,0.35);
+    padding: 0.75em 1.75em;
+    letter-spacing: 0.1em;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s ease forwards 0.9s;
+    transition: background 0.3s, color 0.3s;
+    cursor: pointer;
+  }
+  .cta:hover {
+    background: var(--gold);
+    color: var(--bg);
+  }
+
+  .brand {
+    position: absolute;
+    top: clamp(1.5rem, 3vh, 2.5rem);
+    right: clamp(2rem, 8vw, 9rem);
+    font-family: var(--sans);
+    font-size: clamp(0.65rem, 1vw, 0.8rem);
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(240,237,232,0.3);
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 1.2s;
+  }
+
+  .brand span { color: var(--gold); }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="brand">Testaferro<span>Legal</span>.com</div>
+  <p class="label">Protección legal · Desde 2001</p>
+  <h1>Deje de ser administrador en <em>menos de 7 días.</em></h1>
+  <p class="sub">Sin concurso de acreedores. Sin que puedan embargar su casa.<br>100% legal. Ante notario. Escritura pública.</p>
+  <div class="cta">Descubra cómo funciona ↓</div>
+</div>
+</body>
+</html>
